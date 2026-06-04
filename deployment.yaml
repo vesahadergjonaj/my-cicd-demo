@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-cicd-demo
-        image: vesahadergjonaj/my-cicd-demo:latest
+        image: image: vesahadergjonaj/my-cicd-demo:v1
         ports:
         - containerPort: 80
 
