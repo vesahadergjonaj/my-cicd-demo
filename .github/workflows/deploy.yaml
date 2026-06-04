@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
     - name: Checkout
@@ -26,3 +26,13 @@ jobs:
     - name: Push Image
       run: |
         docker push vesahadergjonaj/my-cicd-demo:${{ github.sha }}
+
+    - name: Setup kubeconfig
+      run: |
+        mkdir -p ~/.kube
+        echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+
+    - name: Update Deployment
+      run: |
+        kubectl set image deployment/my-cicd-demo \
+        my-cicd-demo=vesahadergjonaj/my-cicd-demo:${{ github.sha }}
